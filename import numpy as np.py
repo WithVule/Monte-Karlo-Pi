@@ -1,5 +1,5 @@
 import random
-import pygame
+import math as m
 import pygame as pg
 import sys
 import tkinter as tk
@@ -17,23 +17,48 @@ interval = int(USER_INP)
 
 print("Korisnik je uneo ", USER_INP)
 
+pg.init()
 screen = pg.display.set_mode([500, 500])
-pygame.init()
-font = pygame.font.SysFont("tahoma", 14, True)
+font = pg.font.SysFont("tahoma", 14, True)
 running = True
 
 centar_x = 250
 centar_y = 250
 centar = (centar_x, centar_y)
-precnic = 100
+polup = 250
 
-pg.display.set_caption("Monte Karlo")
+pg.display.set_caption("Monte Karlo veravatnoća igle")
 screen.fill((0, 0, 0))
 
+
+
 def crtez():
-    pg.draw.circle(screen, pg.Color("white"), centar, precnic)
+    pg.draw.circle(screen, pg.Color("white"), centar, polup)
+    pg.draw.circle(screen, pg.Color("black"), centar, (polup-2))
 
 crtez()
+
+def update():
+    random_x = random.uniform(0, 500)
+    random_y = random.uniform(0, 500)
+
+    poz_x = abs(random_x - 250)
+    poz_y = abs(random_y - 250)
+
+    diagonala = m.sqrt(poz_x * poz_x + poz_y * poz_y)
+    pogodak = 1
+    #print("Prečnik tačke je", diagonala)
+    if diagonala <= polup:
+        pg.draw.circle(screen, pg.Color("green"), (random_x, random_y), 2)
+        pogodak += 1
+
+    if diagonala >= polup:
+        pg.draw.circle(screen, pg.Color("red"), (random_x, random_y), 2)
+        pogodak -= 1
+
+
+for interval in range(0, interval):
+    update()
 
 pg.display.update()
 while pg.event.wait().type != pg.QUIT:
