@@ -5,6 +5,8 @@ import sys
 import tkinter as tk
 from tkinter import simpledialog
 
+from pygame.time import delay
+
 ROOT = tk.Tk()
 
 ROOT.withdraw()
@@ -31,13 +33,11 @@ pogodak = 0
 pg.display.set_caption("Monte Karlo veravatnoća igle")
 screen.fill((0, 0, 0))
 
-def crtez():
-    pg.draw.circle(screen, pg.Color("white"), centar, polup)
-    pg.draw.circle(screen, pg.Color("black"), centar, (polup-2))
-
-crtez()
+pg.draw.circle(screen, pg.Color("white"), centar, polup)
+pg.draw.circle(screen, pg.Color("black"), centar, (polup-2))
 
 for interval in range(1, interval):
+    
     random_x = random.uniform(0, 500)
     random_y = random.uniform(0, 500)
 
@@ -45,13 +45,15 @@ for interval in range(1, interval):
     poz_y = abs(random_y - 250)
 
     diagonala = m.sqrt(poz_x * poz_x + poz_y * poz_y)
-    #print("Prečnik tačke je", diagonala)
     if diagonala <= polup:
         pg.draw.circle(screen, pg.Color("green"), (random_x, random_y), 2)
         pogodak += 1
     
-    if diagonala >= polup:
+    else:
         pg.draw.circle(screen, pg.Color("red"), (random_x, random_y), 2)
+    pg.display.update()
+    pg.time.delay(5)
+
 
 def pi():
     pi = 4*pogodak/interval
