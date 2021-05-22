@@ -26,6 +26,7 @@ centar_x = 250
 centar_y = 250
 centar = (centar_x, centar_y)
 polup = 250
+pogodak = 0
 
 pg.display.set_caption("Monte Karlo veravatnoća igle")
 screen.fill((0, 0, 0))
@@ -36,14 +37,13 @@ def crtez():
 
 crtez()
 
-for interval in range(0, interval):
+for interval in range(1, interval):
     random_x = random.uniform(0, 500)
     random_y = random.uniform(0, 500)
 
     poz_x = abs(random_x - 250)
     poz_y = abs(random_y - 250)
 
-    pogodak = 0
     diagonala = m.sqrt(poz_x * poz_x + poz_y * poz_y)
     #print("Prečnik tačke je", diagonala)
     if diagonala <= polup:
@@ -53,7 +53,11 @@ for interval in range(0, interval):
     if diagonala >= polup:
         pg.draw.circle(screen, pg.Color("red"), (random_x, random_y), 2)
 
-print(pogodak)
+def pi():
+    pi = 4*pogodak/interval
+    print(pi)
+
+pi()
     
 pg.display.update()
 while pg.event.wait().type != pg.QUIT:
